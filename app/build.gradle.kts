@@ -80,7 +80,6 @@ dependencies {
 
     implementation ("io.reactivex.rxjava2:rxjava:$rxJavaVersion")
     implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
-    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 

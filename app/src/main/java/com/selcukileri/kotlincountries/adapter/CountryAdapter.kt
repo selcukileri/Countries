@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.selcukileri.kotlincountries.R
 import com.selcukileri.kotlincountries.databinding.ItemCountryBinding
 import com.selcukileri.kotlincountries.model.Country
+import com.selcukileri.kotlincountries.util.downloadFromUrl
+import com.selcukileri.kotlincountries.util.placeHolderProgressBar
 import com.selcukileri.kotlincountries.view.FeedFragmentDirections
 
 class CountryAdapter(val countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
@@ -32,6 +34,7 @@ class CountryAdapter(val countryList: ArrayList<Country>): RecyclerView.Adapter<
             val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment()
             Navigation.findNavController(it).navigate(action)
         }
+        holder.binding.imageView.downloadFromUrl(countryList[position].imageUrl, placeHolderProgressBar(holder.itemView.context))
 
     }
     fun updateCountryList(newCountryList:List<Country>){

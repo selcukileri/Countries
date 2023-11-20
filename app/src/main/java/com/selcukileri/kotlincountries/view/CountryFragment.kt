@@ -25,7 +25,7 @@ class CountryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentCountryBinding.inflate(inflater,container,false)
+        binding = FragmentCountryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,10 +37,12 @@ class CountryFragment : Fragment() {
 
 
         arguments?.let {
-            countryUuid = com.selcukileri.kotlincountries.view.CountryFragmentArgs.fromBundle(it).countryUuid
+            countryUuid =
+                com.selcukileri.kotlincountries.view.CountryFragmentArgs.fromBundle(it).countryUuid
         }
     }
-    private fun observeLiveData(){
+
+    private fun observeLiveData() {
         viewModel.countryLiveData.observe(viewLifecycleOwner, Observer { country ->
             country?.let {
                 binding.countryName.text = it.countryName
@@ -49,7 +51,6 @@ class CountryFragment : Fragment() {
                 binding.countryLanguage.text = it.countryLanguage
                 binding.countryCurrency.text = it.countryCurrency
             }
-
         })
     }
 
