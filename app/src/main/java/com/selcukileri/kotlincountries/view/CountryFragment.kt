@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.selcukileri.kotlincountries.databinding.FragmentCountryBinding
+import com.selcukileri.kotlincountries.util.downloadFromUrl
+import com.selcukileri.kotlincountries.util.placeHolderProgressBar
 import com.selcukileri.kotlincountries.viewmodel.CountryVM
 
 class CountryFragment : Fragment() {
@@ -31,15 +34,16 @@ class CountryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this)[CountryVM::class.java]
-        viewModel.getDataFromRoom()
-        observeLiveData()
-
-
         arguments?.let {
             countryUuid =
                 com.selcukileri.kotlincountries.view.CountryFragmentArgs.fromBundle(it).countryUuid
         }
+        viewModel = ViewModelProviders.of(this)[CountryVM::class.java]
+        viewModel.getDataFromRoom(countryUuid)
+        observeLiveData()
+
+
+
     }
 
     private fun observeLiveData() {
@@ -50,6 +54,9 @@ class CountryFragment : Fragment() {
                 binding.countryRegion.text = it.countryRegion
                 binding.countryLanguage.text = it.countryLanguage
                 binding.countryCurrency.text = it.countryCurrency
+                context?.let {
+                    binding.countryImage.downloadFromUrl(country.imageUrl, placeHolderProgressBar(it))
+                }
             }
         })
     }
