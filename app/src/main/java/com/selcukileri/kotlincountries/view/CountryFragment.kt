@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.selcukileri.kotlincountries.R
 import com.selcukileri.kotlincountries.databinding.FragmentCountryBinding
 import com.selcukileri.kotlincountries.util.downloadFromUrl
 import com.selcukileri.kotlincountries.util.placeHolderProgressBar
@@ -28,7 +30,7 @@ class CountryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentCountryBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country,container,false)
         return binding.root
     }
 
@@ -49,6 +51,8 @@ class CountryFragment : Fragment() {
     private fun observeLiveData() {
         viewModel.countryLiveData.observe(viewLifecycleOwner, Observer { country ->
             country?.let {
+                binding.selectedCountry = it
+                /*
                 binding.countryName.text = it.countryName
                 binding.countryCapital.text = it.countryCapital
                 binding.countryRegion.text = it.countryRegion
@@ -57,6 +61,8 @@ class CountryFragment : Fragment() {
                 context?.let {
                     binding.countryImage.downloadFromUrl(country.imageUrl, placeHolderProgressBar(it))
                 }
+
+                 */
             }
         })
     }
